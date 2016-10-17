@@ -1,0 +1,75 @@
+﻿@model List<ESmvc.Models.Libro>
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Indexador ElasticSearch & C#</h1>
+    <p class="lead">Sistema que te permitirá indexar documentos a tu sitema de ElasticSearch.
+    <br />
+        Para que el sitio funcione correctamente, por favor, inicia tu instancia de ElasticSearch.
+    </p>
+    <p>
+        <div class="text-right">
+            <a href="https://www.elastic.co/" class="btn btn-primary">Aprende la API de ElasticSearch</a>
+            <a href="https://www.elastic.co/guide/en/elasticsearch/client/net-api/1.x/elasticsearch-net-quick-start.html" class="btn btn-default">Aprende a iniciar tu instancia.</a>
+        </div>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Resultados</h2>
+
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titulo</th>
+                        <th>Fecha de Alta</th>
+                        <th>Activo</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var cadaResultado in Model)
+                    {
+                        <tr class="active">
+                            <td>@cadaResultado.Id </td>
+                            <td>
+                                @cadaResultado.Titulo
+                            </td>
+                            <td>
+                                @cadaResultado.FechaAlta
+                            </td>
+                            <td>
+                                @Html.CheckBoxFor(x => cadaResultado.Activo, new { disabled = "disabled" })
+                            </td>
+                        </tr>
+                        foreach (var cadaPagina in cadaResultado.Paginas)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>
+                                    Pagina:
+                                    @cadaPagina.NumPagina
+
+                                </td>
+                                <td colspan="2">
+                                    @cadaPagina.Texto
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
